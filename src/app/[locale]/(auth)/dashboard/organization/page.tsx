@@ -1,5 +1,5 @@
+import { Building2, Settings, UserCheck, Users } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Building2, Users, Settings, UserCheck } from 'lucide-react';
 
 import { PlaceholderSection } from '@/components/placeholder-section';
 import { TitleBar } from '@/features/dashboard/TitleBar';

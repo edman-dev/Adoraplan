@@ -1,5 +1,5 @@
+import { BookOpen, Calendar, Heart, Music, PlayCircle, Search } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Music, BookOpen, Heart, Search, PlayCircle, Calendar } from 'lucide-react';
 
 import { PlaceholderSection } from '@/components/placeholder-section';
 import { TitleBar } from '@/features/dashboard/TitleBar';

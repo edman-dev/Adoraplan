@@ -1,29 +1,19 @@
 'use client';
 
+import type {
+  LucideIcon,
+} from 'lucide-react';
 import {
+  Building2,
+  CalendarDays,
+  CreditCard,
   Home,
   Music,
   Settings,
-  Building2,
-  CreditCard,
-  CalendarDays,
-  LucideIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-
-// TypeScript interfaces for navigation structure
-export interface NavigationItem {
-  title: string;
-  href: string;
-  icon: LucideIcon;
-}
-
-export interface NavigationGroup {
-  label: string;
-  items: NavigationItem[];
-}
 
 import {
   Sidebar,
@@ -35,6 +25,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+
+// TypeScript interfaces for navigation structure
+export type NavigationItem = {
+  title: string;
+  href: string;
+  icon: LucideIcon;
+};
+
+export type NavigationGroup = {
+  label: string;
+  items: NavigationItem[];
+};
 
 export function DashboardNav(): JSX.Element {
   const pathname = usePathname();
@@ -53,7 +55,7 @@ export function DashboardNav(): JSX.Element {
     <SidebarMenuItem key={item.href}>
       <SidebarMenuButton asChild isActive={isActiveRoute(item.href)}>
         <Link href={item.href}>
-          <item.icon className="h-4 w-4" />
+          <item.icon className="size-4" />
           <span>{item.title}</span>
         </Link>
       </SidebarMenuButton>

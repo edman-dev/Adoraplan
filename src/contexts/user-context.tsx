@@ -1,37 +1,13 @@
 'use client';
 
-import { useUser, useOrganization } from '@clerk/nextjs';
-import { createContext, useContext, ReactNode } from 'react';
-import type { OrganizationMembership } from '@clerk/nextjs/server';
+import { useOrganization, useUser } from '@clerk/nextjs';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 
-// Church role types
-export type ChurchRole = 'Admin' | 'Pastor' | 'Organization Manager' | 'Ministry Leader' | 'Member';
-
-// Extended user session data interface
-export interface UserSessionData {
-  id: string;
-  firstName: string | null;
-  lastName: string | null;
-  fullName: string | null;
-  emailAddress: string;
-  imageUrl: string;
-  publicMetadata: Record<string, any>;
-  organizationMemberships: OrganizationMembership[] | undefined;
-}
-
-// Extended organization data interface
-export interface OrganizationSessionData {
-  id: string;
-  name: string;
-  slug: string | null;
-  imageUrl: string;
-  membersCount: number | undefined;
-  createdAt: Date;
-  publicMetadata: Record<string, any>;
-}
+import type { ChurchRole } from '@/lib/user-role-utils';
 
 // User context interface with proper TypeScript types
-export interface UserContextType {
+export type UserContextType = {
   user: ReturnType<typeof useUser>['user'];
   organization: ReturnType<typeof useOrganization>['organization'];
   userRole: ChurchRole | null;
@@ -44,7 +20,7 @@ export interface UserContextType {
   isPastor: boolean;
   isOrganizationManager: boolean;
   isMinistryLeader: boolean;
-}
+};
 
 // Create the context
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -54,17 +30,45 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const { user, isLoaded: userLoaded, isSignedIn } = useUser();
   const { organization, isLoaded: orgLoaded } = useOrganization();
 
+  // Helper function to get role from user metadata (for custom roles)
+  const getUserRoleFromMetadata = (): ChurchRole | null => {
+    if (!user?.publicMetadata) {
+      return null;
+    }
+
+    // Check public metadata for church role
+    const churchRole = user.publicMetadata.churchRole as string;
+
+    // Map metadata roles to display names
+    switch (churchRole) {
+      case 'pastor':
+        return 'Pastor';
+      case 'organization_manager':
+        return 'Organization Manager';
+      case 'ministry_leader':
+        return 'Ministry Leader';
+      case 'admin':
+        return 'Admin';
+      default:
+        return null;
+    }
+  };
+
   // Helper function to determine user role
   const getUserRole = (): ChurchRole | null => {
-    if (!user || !organization) return null;
-    
+    if (!user || !organization) {
+      return null;
+    }
+
     // Check organization membership role
     const membership = user.organizationMemberships?.find(
-      (membership) => membership.organization?.id === organization.id
+      membership => membership.organization?.id === organization.id,
     );
-    
-    if (!membership) return null;
-    
+
+    if (!membership) {
+      return null;
+    }
+
     // Map Clerk roles to church-specific roles
     const role = membership.role as string;
     switch (role) {
@@ -84,34 +88,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Helper function to get role from user metadata (for custom roles)
-  const getUserRoleFromMetadata = (): ChurchRole | null => {
-    if (!user?.publicMetadata) return null;
-    
-    // Check public metadata for church role
-    const churchRole = user.publicMetadata.churchRole as string;
-    
-    // Map metadata roles to display names
-    switch (churchRole) {
-      case 'pastor':
-        return 'Pastor';
-      case 'organization_manager':
-        return 'Organization Manager';
-      case 'ministry_leader':
-        return 'Ministry Leader';
-      case 'admin':
-        return 'Admin';
-      default:
-        return null;
-    }
-  };
-
   // Computed helper values
   const userRole = getUserRole();
   const userDisplayName = user?.fullName || user?.firstName || null;
   const organizationDisplayName = organization?.name || null;
 
-  const contextValue: UserContextType = {
+  const contextValue: UserContextType = useMemo(() => ({
     user,
     organization,
     userRole,
@@ -124,7 +106,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     isPastor: userRole === 'Pastor',
     isOrganizationManager: userRole === 'Organization Manager',
     isMinistryLeader: userRole === 'Ministry Leader',
-  };
+  }), [user, organization, userRole, userLoaded, orgLoaded, isSignedIn, userDisplayName, organizationDisplayName]);
 
   return (
     <UserContext.Provider value={contextValue}>

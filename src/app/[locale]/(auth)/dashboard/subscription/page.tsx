@@ -1,5 +1,5 @@
+import { AlertCircle, Calendar, CreditCard, DollarSign, Receipt, Settings } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { CreditCard, Receipt, Calendar, DollarSign, Settings, AlertCircle } from 'lucide-react';
 
 import { PlaceholderSection } from '@/components/placeholder-section';
 import { TitleBar } from '@/features/dashboard/TitleBar';
@@ -19,9 +19,11 @@ const SubscriptionPage = () => {
         {/* Stripe Integration Notice */}
         <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950">
           <div className="flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <AlertCircle className="size-5 text-blue-600 dark:text-blue-400" />
             <p className="text-sm text-blue-800 dark:text-blue-200">
-              <strong>Integration Note:</strong> This section will integrate with the existing Stripe subscription functionality already configured in the project.
+              <strong>Integration Note:</strong>
+              {' '}
+              This section will integrate with the existing Stripe subscription functionality already configured in the project.
             </p>
           </div>
         </div>

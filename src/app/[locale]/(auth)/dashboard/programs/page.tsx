@@ -1,5 +1,5 @@
+import { CalendarDays, CheckCircle2, Clock, Edit3, FileText, Users } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { CalendarDays, Clock, Edit3, FileText, Users, CheckCircle2 } from 'lucide-react';
 
 import { PlaceholderSection } from '@/components/placeholder-section';
 import { TitleBar } from '@/features/dashboard/TitleBar';

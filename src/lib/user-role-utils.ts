@@ -2,7 +2,7 @@
 export type ChurchRole = 'Admin' | 'Pastor' | 'Organization Manager' | 'Ministry Leader' | 'Member';
 
 // Extended user session data interface
-export interface UserSessionData {
+export type UserSessionData = {
   id: string;
   firstName: string | null;
   lastName: string | null;
@@ -11,10 +11,10 @@ export interface UserSessionData {
   imageUrl: string;
   publicMetadata: Record<string, any>;
   organizationMemberships: any[] | undefined;
-}
+};
 
 // Extended organization data interface
-export interface OrganizationSessionData {
+export type OrganizationSessionData = {
   id: string;
   name: string;
   slug: string | null;
@@ -22,4 +22,4 @@ export interface OrganizationSessionData {
   membersCount: number | undefined;
   createdAt: Date;
   publicMetadata: Record<string, any>;
-}
+};

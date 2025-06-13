@@ -1,6 +1,6 @@
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
-interface PlaceholderSectionProps {
+type PlaceholderSectionProps = {
   title: string;
   description: string;
   icon?: LucideIcon;
@@ -10,7 +10,7 @@ interface PlaceholderSectionProps {
   descriptionClassName?: string;
   showToBeBuildLabel?: boolean;
   customLabel?: string;
-}
+};
 
 export function PlaceholderSection({
   title,
@@ -28,16 +28,16 @@ export function PlaceholderSection({
   return (
     <div className={`flex flex-col items-center justify-center text-center ${isCompact ? 'py-8' : 'py-16'}`}>
       {Icon && (
-        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
-          <Icon className="h-8 w-8 text-muted-foreground" />
+        <div className="mb-4 flex size-16 items-center justify-center rounded-full bg-muted">
+          <Icon className="size-8 text-muted-foreground" />
         </div>
       )}
-      
+
       <div className="space-y-2">
         <h2 className={`font-semibold text-foreground ${isCompact ? 'text-lg' : 'text-xl'} ${titleClassName || ''}`}>
           {title}
         </h2>
-        
+
         <p className={`text-muted-foreground ${isCompact ? 'text-sm' : 'text-base'} max-w-md ${descriptionClassName || ''}`}>
           {description}
         </p>
@@ -46,11 +46,13 @@ export function PlaceholderSection({
       {showToBeBuildLabel && (
         <div className="mt-6 space-y-2">
           <div className="rounded-md bg-muted px-4 py-2 text-sm text-muted-foreground">
-            <strong>{customLabel || 'To be built'}</strong> - This feature is planned for future development
+            <strong>{customLabel || 'To be built'}</strong>
+            {' '}
+            - This feature is planned for future development
           </div>
-          
+
           {additionalInfo && (
-            <div className="text-xs text-muted-foreground max-w-lg">
+            <div className="max-w-lg text-xs text-muted-foreground">
               {additionalInfo}
             </div>
           )}

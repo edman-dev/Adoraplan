@@ -1,42 +1,68 @@
 'use client';
 
-import { OrganizationSwitcher, UserButton, useUser, useOrganization } from '@clerk/nextjs';
+import { OrganizationSwitcher, useOrganization, UserButton, useUser } from '@clerk/nextjs';
 import Link from 'next/link';
-import { Badge } from '@/components/ui/badge';
 
 import { DashboardNav } from '@/components/dashboard-nav';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
-import { Logo } from '@/templates/Logo';
-import { 
-  SidebarProvider, 
-  SidebarInset, 
-  SidebarTrigger 
-} from '@/components/ui/sidebar';
+import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { getI18nPath } from '@/utils/Helpers';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
 import { UserProvider } from '@/contexts/user-context';
+import type { ChurchRole } from '@/lib/user-role-utils';
+import { Logo } from '@/templates/Logo';
+import { getI18nPath } from '@/utils/Helpers';
 
-// Church role types
-type ChurchRole = 'Admin' | 'Pastor' | 'Organization Manager' | 'Ministry Leader' | 'Member';
-
-export default function DashboardLayout(props: { 
+export default function DashboardLayout(props: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
   const { user } = useUser();
   const { organization } = useOrganization();
-  
+
+  // Helper function to get role from user metadata (for custom roles)
+  const getUserRoleFromMetadata = (): ChurchRole | null => {
+    if (!user?.publicMetadata) {
+      return null;
+    }
+
+    // Check public metadata for church role
+    const churchRole = user.publicMetadata.churchRole as string;
+
+    // Map metadata roles to display names
+    switch (churchRole) {
+      case 'pastor':
+        return 'Pastor';
+      case 'organization_manager':
+        return 'Organization Manager';
+      case 'ministry_leader':
+        return 'Ministry Leader';
+      case 'admin':
+        return 'Admin';
+      default:
+        return null;
+    }
+  };
+
   // Helper function to determine user role
   const getUserRole = (): ChurchRole | null => {
-    if (!user || !organization) return null;
-    
+    if (!user || !organization) {
+      return null;
+    }
+
     // Check organization membership role
     const membership = user.organizationMemberships?.find(
-      (membership) => membership.organization?.id === organization.id
+      membership => membership.organization?.id === organization.id,
     );
-    
-    if (!membership) return null;
-    
+
+    if (!membership) {
+      return null;
+    }
+
     // Map Clerk roles to church-specific roles
     // You can customize these mappings based on your role configuration in Clerk
     const role = membership.role as string;
@@ -54,28 +80,6 @@ export default function DashboardLayout(props: {
       default:
         // Check for custom roles using public metadata or other methods
         return getUserRoleFromMetadata() || 'Member';
-    }
-  };
-
-  // Helper function to get role from user metadata (for custom roles)
-  const getUserRoleFromMetadata = (): ChurchRole | null => {
-    if (!user?.publicMetadata) return null;
-    
-    // Check public metadata for church role
-    const churchRole = user.publicMetadata.churchRole as string;
-    
-    // Map metadata roles to display names
-    switch (churchRole) {
-      case 'pastor':
-        return 'Pastor';
-      case 'organization_manager':
-        return 'Organization Manager';
-      case 'ministry_leader':
-        return 'Ministry Leader';
-      case 'admin':
-        return 'Admin';
-      default:
-        return null;
     }
   };
 
@@ -104,15 +108,15 @@ export default function DashboardLayout(props: {
           <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-background px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            
+
             {/* Logo and Organization */}
             <div className="flex items-center gap-2">
               <Link href="/dashboard" className="flex items-center gap-2">
                 <Logo />
               </Link>
-              
+
               <Separator orientation="vertical" className="h-4" />
-              
+
               <div className="flex items-center gap-2">
                 <OrganizationSwitcher
                   organizationProfileMode="navigation"
@@ -129,16 +133,23 @@ export default function DashboardLayout(props: {
                     },
                   }}
                 />
-                
+
                 {/* Organization Context Info */}
                 {organization && (
-                  <div className="hidden lg:flex items-center gap-1 text-sm text-muted-foreground">
+                  <div className="hidden items-center gap-1 text-sm text-muted-foreground lg:flex">
                     <span>•</span>
-                    <span>{organization.membersCount || 0} members</span>
+                    <span>
+                      {organization.membersCount || 0}
+                      {' '}
+                      members
+                    </span>
                     {user && getUserRole() && (
                       <>
                         <span>•</span>
-                        <span>You are {getUserRole()}</span>
+                        <span>
+                          You are
+                          {getUserRole()}
+                        </span>
                       </>
                     )}
                   </div>
@@ -152,14 +163,17 @@ export default function DashboardLayout(props: {
               <div className="flex items-center gap-3">
                 {/* Organization Context */}
                 {organization && (
-                  <div className="hidden sm:flex flex-col items-end">
+                  <div className="hidden flex-col items-end sm:flex">
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <span>Church:</span>
                       <span className="font-medium text-foreground">{organization.name}</span>
                     </div>
                     {organization.membersCount && (
                       <span className="text-xs text-muted-foreground">
-                        {organization.membersCount} member{organization.membersCount !== 1 ? 's' : ''}
+                        {organization.membersCount}
+                        {' '}
+                        member
+                        {organization.membersCount !== 1 ? 's' : ''}
                       </span>
                     )}
                   </div>
@@ -168,11 +182,11 @@ export default function DashboardLayout(props: {
                 {/* User Info Display */}
                 {user && (
                   <div className="flex items-center gap-2 text-sm">
-                    <div className="hidden sm:flex flex-col items-end">
+                    <div className="hidden flex-col items-end sm:flex">
                       <span className="font-medium">{user.fullName || user.firstName}</span>
                       {getUserRole() && (
-                        <Badge 
-                          variant={getRoleBadgeVariant(getUserRole()) as any} 
+                        <Badge
+                          variant={getRoleBadgeVariant(getUserRole()) as any}
                           className="text-xs"
                         >
                           {getUserRole()}
@@ -182,7 +196,7 @@ export default function DashboardLayout(props: {
                   </div>
                 )}
               </div>
-              
+
               <Separator orientation="vertical" className="h-4" />
               <LocaleSwitcher />
               <Separator orientation="vertical" className="h-4" />

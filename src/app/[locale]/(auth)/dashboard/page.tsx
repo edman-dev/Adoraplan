@@ -1,12 +1,12 @@
-import { useTranslations } from 'next-intl';
-import { 
-  Activity, 
-  Calendar, 
-  Users, 
-  TrendingUp,
+import {
+  Activity,
+  Calendar,
+  CheckCircle,
   Clock,
-  CheckCircle 
+  TrendingUp,
+  Users,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { PlaceholderSection } from '@/components/placeholder-section';
 import { TitleBar } from '@/features/dashboard/TitleBar';
@@ -73,7 +73,7 @@ const DashboardIndexPage = () => {
         {/* Main Content Row */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Recent Services Widget */}
-          <div className="lg:col-span-2 rounded-lg border bg-card p-6">
+          <div className="rounded-lg border bg-card p-6 lg:col-span-2">
             <PlaceholderSection
               title="Recent Services"
               description="Latest service planning and modifications"
