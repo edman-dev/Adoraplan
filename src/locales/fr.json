@@ -91,7 +91,12 @@
     "todos": "Todos",
     "members": "Membres",
     "billing": "Facturation",
-    "settings": "Réglages"
+    "settings": "Réglages",
+    "dashboard": "Tableau de bord",
+    "organization": "Organisation",
+    "programs": "Programmes",
+    "hymns": "Hymnes",
+    "subscription": "Abonnement"
   },
   "Dashboard": {
     "meta_title": "Tableau de bord du SaaS Template",
@@ -99,11 +104,35 @@
   },
   "DashboardIndex": {
     "title_bar": "Tableau de bord",
-    "title_bar_description": "Bienvenue sur votre tableau de bord",
-    "message_state_title": "C'est parti",
-    "message_state_description": "Vous pouvez personnaliser cette page en modifiant le fichier dans <code>dashboard/page.tsx</code>",
+    "title_bar_description": "Bienvenue sur votre tableau de bord de gestion d'église",
+    "message_state_title": "Aperçu du Tableau de Bord",
+    "message_state_description": "Cette section affichera un aperçu des derniers services de votre église, des activités ministérielles et des mises à jour importantes. Les fonctionnalités futures incluront le statut des services, les événements à venir et les résumés ministériels.",
     "message_state_button": "Mettez une étoile sur GitHub",
     "message_state_alternative": "Vous voulez plus de fonctionnalités en utilisant la même stack ? Essayez <url></url>."
+  },
+  "Organization": {
+    "title_bar": "Organisation",
+    "title_bar_description": "Gérez votre organisation d'église",
+    "message_state_title": "Gestion de l'Organisation",
+    "message_state_description": "Cette section est en cours de développement. Les fonctionnalités futures incluront la gestion de l'église, la supervision des ministères et les paramètres organisationnels."
+  },
+  "Programs": {
+    "title_bar": "Programmes",
+    "title_bar_description": "Gérez les programmes et services de l'église",
+    "message_state_title": "Gestion des Programmes",
+    "message_state_description": "Cette section est en cours de développement. Les fonctionnalités futures incluront la planification des services, la programmation et la coordination des ministères."
+  },
+  "Hymns": {
+    "title_bar": "Hymnes",
+    "title_bar_description": "Gérez la bibliothèque d'hymnes et la sélection musicale",
+    "message_state_title": "Gestion des Hymnes",
+    "message_state_description": "Cette section est en cours de développement. Les fonctionnalités futures incluront la gestion de la bibliothèque d'hymnes, la sélection musicale pour les services et la planification du culte."
+  },
+  "Subscription": {
+    "title_bar": "Abonnement",
+    "title_bar_description": "Gérez votre abonnement et facturation",
+    "message_state_title": "Gestion de l'Abonnement",
+    "message_state_description": "Cette section est en cours de développement. Les fonctionnalités futures incluront les plans d'abonnement, la gestion de la facturation et l'intégration du traitement des paiements."
   },
   "UserProfile": {
     "title_bar": "Profil utilisateur",

@@ -91,7 +91,12 @@
     "todos": "Todos",
     "members": "Members",
     "billing": "Billing",
-    "settings": "Settings"
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "organization": "Organization",
+    "programs": "Programs",
+    "hymns": "Hymns",
+    "subscription": "Subscription"
   },
   "Dashboard": {
     "meta_title": "SaaS Template Dashboard",
@@ -99,11 +104,35 @@
   },
   "DashboardIndex": {
     "title_bar": "Dashboard",
-    "title_bar_description": "Welcome to your dashboard",
-    "message_state_title": "Let's get started",
-    "message_state_description": "You can customize this page by editing the file at <code>dashboard/page.tsx</code>",
+    "title_bar_description": "Welcome to your church management dashboard",
+    "message_state_title": "Dashboard Overview",
+    "message_state_description": "This section will display an overview of your church's latest services, ministry activities, and important updates. Future features will include service status, upcoming events, and ministry summaries.",
     "message_state_button": "Star on GitHub",
     "message_state_alternative": "Want more features using the same stack? Try <url></url>."
+  },
+  "Organization": {
+    "title_bar": "Organization",
+    "title_bar_description": "Manage your church organization",
+    "message_state_title": "Organization Management",
+    "message_state_description": "This section is under development. Future features will include church management, ministry oversight, and organizational settings."
+  },
+  "Programs": {
+    "title_bar": "Programs",
+    "title_bar_description": "Manage church programs and services",
+    "message_state_title": "Program Management",
+    "message_state_description": "This section is under development. Future features will include service planning, program scheduling, and ministry coordination."
+  },
+  "Hymns": {
+    "title_bar": "Hymns",
+    "title_bar_description": "Manage hymn library and music selection",
+    "message_state_title": "Hymn Management",
+    "message_state_description": "This section is under development. Future features will include hymn library management, music selection for services, and worship planning."
+  },
+  "Subscription": {
+    "title_bar": "Subscription",
+    "title_bar_description": "Manage your subscription and billing",
+    "message_state_title": "Subscription Management",
+    "message_state_description": "This section is under development. Future features will include subscription plans, billing management, and payment processing integration."
   },
   "UserProfile": {
     "title_bar": "User Profile",
