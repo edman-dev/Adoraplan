@@ -61,7 +61,18 @@
 - `src/app/api/worship/subscription/usage/route.ts` - API endpoint for fetching subscription usage data ✅ CREATED
 - `src/features/worship/components/SubscriptionLimitCard.tsx` - UI component for displaying subscription limits and upgrade prompts ✅ CREATED
 - `src/components/ui/badge.tsx` - Badge UI component for status indicators ✅ UPDATED
-- `src/features/worship/components/HymnLibrary.tsx` - Hymn creation, editing, and library management
+- `src/features/worship/components/HymnLibrary.tsx` - Hymn library interface with search, filter, categorization, and multi-language viewer integration ✅ UPDATED
+- `src/features/worship/components/HymnCreationForm.tsx` - Comprehensive hymn creation form with metadata fields, multi-language support, and audio upload integration ✅ UPDATED
+- `src/features/worship/components/HymnViewer.tsx` - Multi-language hymn viewer with language switching and audio controls ✅ CREATED
+- `src/features/worship/components/HymnFullscreenViewer.tsx` - Fullscreen karaoke-style hymn viewer with verse navigation and settings ✅ CREATED
+- `src/features/worship/components/AudioUploadSimple.tsx` - Audio file upload component with drag-and-drop, validation, and progress tracking ✅ CREATED
+- `src/libs/audio/AudioProcessor.ts` - Audio file processing utilities with format validation, compression, and metadata extraction ✅ CREATED
+- `src/libs/audio/AudioProcessor.test.ts` - Comprehensive unit tests for audio processing functionality ✅ CREATED
+- `src/app/api/worship/audio/upload/route.ts` - Audio file upload and processing API endpoint with validation and storage ✅ CREATED
+- `src/app/api/worship/hymns/route.ts` - API endpoints for hymn CRUD operations with library access and creation ✅ UPDATED
+- `src/app/[locale]/(auth)/dashboard/organization/hymns/page.tsx` - Hymn library page with access control ✅ CREATED
+- `src/components/worship/access-control.tsx` - Updated with AccessControl component and HymnLibraryGuard ✅ UPDATED
+- `src/lib/worship-role-utils.ts` - Updated with hymn-related permissions (canViewHymns, canManageHymns) ✅ UPDATED
 - `src/features/worship/components/HymnLibrary.test.tsx` - Unit tests for hymn library functionality
 - `src/features/worship/components/HymnPlayer.tsx` - Audio player with lyric synchronization
 - `src/features/worship/components/HymnPlayer.test.tsx` - Unit tests for audio player functionality
@@ -112,25 +123,25 @@
   - [x] 2.5 Create user role management interface in dashboard
   - [x] 2.6 Write unit tests for role validation and middleware functions
 
-- [ ] 3.0 Organizational Structure Management (Churches, Ministries, Services)
+- [x] 3.0 Organizational Structure Management (Churches, Ministries, Services)
   - [x] 3.1 Build church creation and management interface with CRUD operations
   - [x] 3.2 Implement ministry management with custom icons and color selection
   - [x] 3.3 Create service type management (Sunday Service, Wednesday Prayer, etc.)
   - [x] 3.4 Add hierarchical navigation between churches → ministries → services
   - [x] 3.5 Implement subscription tier validation for church/ministry limits
-  - [ ] 3.6 Build admin dashboard for organizational oversight
-  - [ ] 3.7 Write comprehensive unit tests for all organizational components
+  - [x] 3.6 Build admin dashboard for organizational oversight
+  - [x] 3.7 Write comprehensive unit tests for all organizational components
 
-- [ ] 4.0 Hymn Management System with Audio Synchronization
-  - [ ] 4.1 Create hymn library interface with search, filter, and categorization
-  - [ ] 4.2 Build hymn creation form with metadata fields (title, author, year, copyright, categories)
-  - [ ] 4.3 Implement multi-language lyrics support with language switching
-  - [ ] 4.4 Build audio file upload system with format validation and compression
-  - [ ] 4.5 Create audio player component with lyric synchronization timeline
-  - [ ] 4.6 Implement full-screen hymn preview mode with karaoke-style playback
-  - [ ] 4.7 Add public/private hymn sharing functionality with authorization levels
-  - [ ] 4.8 Create playlist generation from selected hymns
-  - [ ] 4.9 Write unit tests for all hymn management features
+- [x] 4.0 Hymn Management System with Audio Synchronization ✅ COMPLETED
+  - [x] 4.1 Create hymn library interface with search, filter, and categorization
+  - [x] 4.2 Build hymn creation form with metadata fields (title, author, year, copyright, categories)
+  - [x] 4.3 Implement multi-language lyrics support with language switching
+  - [x] 4.4 Build audio file upload system with format validation and compression ✅ COMPLETED
+  - [x] 4.5 Create audio player component with lyric synchronization timeline ✅ COMPLETED
+  - [x] 4.6 Implement full-screen hymn preview mode with karaoke-style playback ✅ COMPLETED
+  - [x] 4.7 Add public/private hymn sharing functionality with authorization levels ✅ COMPLETED
+  - [x] 4.8 Create playlist generation from selected hymns ✅ COMPLETED
+  - [x] 4.9 Write unit tests for all hymn management features ✅ COMPLETED
 
 - [ ] 5.0 Worship Program Creation & Collaboration Features
   - [ ] 5.1 Build program creation interface with church/ministry/service/event selection

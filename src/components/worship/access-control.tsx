@@ -279,3 +279,51 @@ export function UserManagementGuard({
     </PermissionGuard>
   );
 }
+
+/**
+ * Generic access control component that can check roles or permissions
+ */
+export type AccessControlGenericProps = AccessControlProps & {
+  requiredRole?: ExtendedWorshipRole;
+  requiredPermission?: WorshipRoutePermission;
+};
+
+export function AccessControl({
+  children,
+  fallback = null,
+  requiredRole,
+  requiredPermission,
+}: AccessControlGenericProps) {
+  if (requiredRole) {
+    return (
+      <RoleGuard requiredRole={requiredRole} fallback={fallback}>
+        {children}
+      </RoleGuard>
+    );
+  }
+
+  if (requiredPermission) {
+    return (
+      <PermissionGuard permission={requiredPermission} fallback={fallback}>
+        {children}
+      </PermissionGuard>
+    );
+  }
+
+  // If no requirements specified, just render children
+  return <>{children}</>;
+}
+
+/**
+ * Hymn library guard - requires view hymns permission
+ */
+export function HymnLibraryGuard({
+  children,
+  fallback = null,
+}: AccessControlProps) {
+  return (
+    <PermissionGuard permission="canViewHymns" fallback={fallback}>
+      {children}
+    </PermissionGuard>
+  );
+}

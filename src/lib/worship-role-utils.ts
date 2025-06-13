@@ -72,6 +72,12 @@ export const WorshipRolePermissions = {
     ['admin', 'pastor'].includes(role),
 
   // Hymn management permissions
+  canViewHymns: (role: ExtendedWorshipRole): boolean =>
+    ['admin', 'pastor', 'worship_leader', 'collaborator', 'member'].includes(role),
+
+  canManageHymns: (role: ExtendedWorshipRole): boolean =>
+    ['admin', 'pastor', 'worship_leader', 'collaborator'].includes(role),
+
   canCreateHymn: (role: ExtendedWorshipRole): boolean =>
     ['admin', 'pastor', 'worship_leader', 'collaborator'].includes(role),
 
