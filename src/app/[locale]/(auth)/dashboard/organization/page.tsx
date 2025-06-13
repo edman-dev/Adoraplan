@@ -1,4 +1,5 @@
 import { Building2, Settings, UserCheck, Users } from 'lucide-react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { PlaceholderSection } from '@/components/placeholder-section';
@@ -53,12 +54,22 @@ const OrganizationPage = () => {
           {/* Role & Permissions */}
           <div className="rounded-lg border bg-card p-4">
             <PlaceholderSection
-              title="Roles & Permissions"
-              description="Manage user roles and access"
+              title="Role Management"
+              description="Comprehensive role and permission management"
               icon={UserCheck}
               variant="compact"
-              additionalInfo="Will handle pastor, ministry leader, and admin role assignments"
+              additionalInfo="Full-featured role management dashboard with analytics, permissions matrix, and activity tracking"
+              showToBeBuildLabel={false}
             />
+            <div className="mt-4 text-center">
+              <Link
+                href="/dashboard/organization/users"
+                className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <UserCheck className="mr-2 size-4" />
+                Role Dashboard
+              </Link>
+            </div>
           </div>
         </div>
 

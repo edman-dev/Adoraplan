@@ -5,6 +5,37 @@
 - `src/models/WorshipSchema.ts` - Database schema definitions for worship-specific entities (churches, ministries, hymns, programs, events) ✅ CREATED
 - `src/models/WorshipSchema.test.ts` - Unit tests for schema validations and relationships ✅ CREATED
 - `src/features/worship/types/index.ts` - TypeScript type definitions for worship entities ✅ CREATED
+- `src/lib/worship-role-utils.ts` - Worship-specific role utilities and permissions ✅ CREATED
+- `src/lib/worship-role-utils.test.ts` - Unit tests for worship role utilities ✅ CREATED
+- `src/lib/worship-role-management.ts` - Server-side Clerk role management utilities ✅ CREATED
+- `src/contexts/user-context.tsx` - Updated user context with worship role support ✅ UPDATED
+- `src/middleware/worship-auth.ts` - Role-based middleware for protecting worship routes ✅ CREATED
+- `src/middleware/worship-auth.test.ts` - Unit tests for worship authentication middleware ✅ CREATED
+- `src/lib/worship-auth-server.ts` - Server-side authentication utilities for server components ✅ CREATED
+- `src/hooks/use-worship-auth.ts` - Client-side React hook for worship authentication ✅ CREATED
+- `src/hooks/use-worship-auth.test.tsx` - Unit tests for worship auth hook ✅ CREATED
+- `src/lib/worship-user-management.ts` - Organization-level user management utilities ✅ CREATED
+- `src/lib/worship-user-management.test.ts` - Unit tests for user management utilities ✅ CREATED
+- `src/hooks/use-user-management.ts` - React hook for user management operations ✅ CREATED
+- `src/hooks/use-user-management.test.ts` - Unit tests for user management hook ✅ CREATED
+- `src/components/worship/user-management.tsx` - User management interface component ✅ CREATED
+- `src/components/worship/invite-user-dialog.tsx` - Dialog for inviting new users ✅ CREATED
+- `src/components/worship/update-role-dialog.tsx` - Dialog for updating user roles ✅ CREATED
+- `src/app/api/worship/users/route.ts` - API endpoints for user listing and invitations ✅ CREATED
+- `src/app/api/worship/users/route.test.ts` - Unit tests for user listing and invitation API endpoints ✅ CREATED
+- `src/app/api/worship/users/[userId]/route.ts` - API endpoints for user role updates and removal ✅ CREATED
+- `src/app/api/worship/users/[userId]/route.test.ts` - Unit tests for user role update and removal API endpoints ✅ CREATED
+- `src/app/api/worship/invitations/[invitationId]/route.ts` - API endpoints for invitation management ✅ CREATED
+- `src/app/api/worship/invitations/[invitationId]/route.test.ts` - Unit tests for invitation management API endpoints ✅ CREATED
+- `src/app/[locale]/(auth)/dashboard/organization/users/page.tsx` - User management page ✅ CREATED
+- `src/components/worship/access-control.tsx` - Component-level access control utilities ✅ CREATED
+- `src/components/worship/access-control.test.tsx` - Unit tests for access control components ✅ CREATED
+- `src/components/worship/role-management-dashboard.tsx` - Comprehensive role management dashboard ✅ CREATED
+- `src/components/worship/role-management-dashboard.test.tsx` - Unit tests for role management dashboard ✅ CREATED
+- `src/components/ui/card.tsx` - Card UI component ✅ CREATED
+- `src/components/ui/select.tsx` - Select UI component ✅ CREATED
+- `src/components/ui/progress.tsx` - Progress UI component ✅ CREATED
+- `src/components/ui/tabs.tsx` - Tabs UI component ✅ CREATED
 - `src/features/worship/components/ChurchManagement.tsx` - Church creation and management interface
 - `src/features/worship/components/ChurchManagement.test.tsx` - Unit tests for church management component
 - `src/features/worship/components/MinistryManagement.tsx` - Ministry creation with icons and colors
@@ -52,13 +83,13 @@
   - [x] 1.5 Generate and test database migration files
   - [x] 1.6 Write unit tests for schema validations and relationship constraints
 
-- [ ] 2.0 User Role Management & Authentication Extension
-  - [ ] 2.1 Extend existing Clerk user metadata to include worship-specific roles (Admin, Worship Leader, Pastor, Collaborator)
-  - [ ] 2.2 Create role-based middleware for protecting worship-related routes
-  - [ ] 2.3 Implement organization-level user management (invite, assign roles, remove users)
-  - [ ] 2.4 Add role validation utilities for component-level access control
-  - [ ] 2.5 Create user role management interface in dashboard
-  - [ ] 2.6 Write unit tests for role validation and middleware functions
+- [x] 2.0 User Role Management & Authentication Extension
+  - [x] 2.1 Extend existing Clerk user metadata to include worship-specific roles (Admin, Worship Leader, Pastor, Collaborator)
+  - [x] 2.2 Create role-based middleware for protecting worship-related routes
+  - [x] 2.3 Implement organization-level user management (invite, assign roles, remove users)
+  - [x] 2.4 Add role validation utilities for component-level access control
+  - [x] 2.5 Create user role management interface in dashboard
+  - [x] 2.6 Write unit tests for role validation and middleware functions
 
 - [ ] 3.0 Organizational Structure Management (Churches, Ministries, Services)
   - [ ] 3.1 Build church creation and management interface with CRUD operations

@@ -5,21 +5,63 @@ import type { ReactNode } from 'react';
 import { createContext, useContext, useMemo } from 'react';
 
 import type { ChurchRole } from '@/lib/user-role-utils';
+import type {
+  ExtendedWorshipRole,
+  WorshipUserMetadata,
+} from '@/lib/worship-role-utils';
+import {
+  getEffectiveWorshipRole,
+  WorshipRolePermissions,
+} from '@/lib/worship-role-utils';
 
 // User context interface with proper TypeScript types
 export type UserContextType = {
   user: ReturnType<typeof useUser>['user'];
   organization: ReturnType<typeof useOrganization>['organization'];
   userRole: ChurchRole | null;
+  worshipRole: ExtendedWorshipRole;
   isLoading: boolean;
   isSignedIn: boolean;
   // Computed helper properties
   userDisplayName: string | null;
   organizationDisplayName: string | null;
+  // Legacy role checks (maintained for backward compatibility)
   isAdmin: boolean;
   isPastor: boolean;
   isOrganizationManager: boolean;
   isMinistryLeader: boolean;
+  // Worship-specific role checks
+  isWorshipAdmin: boolean;
+  isWorshipLeader: boolean;
+  isWorshipPastor: boolean;
+  isWorshipCollaborator: boolean;
+  // Permission checks
+  permissions: {
+    canCreateChurch: boolean;
+    canManageChurch: boolean;
+    canDeleteChurch: boolean;
+    canCreateMinistry: boolean;
+    canManageMinistry: boolean;
+    canDeleteMinistry: boolean;
+    canCreateHymn: boolean;
+    canEditHymn: boolean;
+    canApproveHymn: boolean;
+    canDeleteHymn: boolean;
+    canCreateProgram: boolean;
+    canEditProgram: boolean;
+    canApproveProgram: boolean;
+    canDeleteProgram: boolean;
+    canCreateEvent: boolean;
+    canEditEvent: boolean;
+    canDeleteEvent: boolean;
+    canInviteUsers: boolean;
+    canAssignRoles: boolean;
+    canRemoveUsers: boolean;
+    canViewAllFeedback: boolean;
+    canResolveFeedback: boolean;
+    canManageSubscription: boolean;
+    canViewUsageStats: boolean;
+  };
 };
 
 // Create the context
@@ -54,7 +96,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Helper function to determine user role
+  // Helper function to determine user role (legacy support)
   const getUserRole = (): ChurchRole | null => {
     if (!user || !organization) {
       return null;
@@ -88,25 +130,83 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Get worship-specific role from new system
+  const getWorshipRole = (): ExtendedWorshipRole => {
+    if (!user || !organization) {
+      return 'member';
+    }
+
+    // Get current organization membership role
+    const membership = user.organizationMemberships?.find(
+      membership => membership.organization?.id === organization.id,
+    );
+
+    const clerkOrgRole = membership?.role as string;
+
+    // Get worship metadata from user's public metadata
+    const worshipMetadata = user.publicMetadata as WorshipUserMetadata;
+
+    // Get effective worship role combining Clerk roles and worship metadata
+    return getEffectiveWorshipRole(clerkOrgRole, worshipMetadata, organization.id);
+  };
+
   // Computed helper values
   const userRole = getUserRole();
+  const worshipRole = getWorshipRole();
   const userDisplayName = user?.fullName || user?.firstName || null;
   const organizationDisplayName = organization?.name || null;
+
+  // Create permissions object based on worship role
+  const permissions = useMemo(() => ({
+    canCreateChurch: WorshipRolePermissions.canCreateChurch(worshipRole),
+    canManageChurch: WorshipRolePermissions.canManageChurch(worshipRole),
+    canDeleteChurch: WorshipRolePermissions.canDeleteChurch(worshipRole),
+    canCreateMinistry: WorshipRolePermissions.canCreateMinistry(worshipRole),
+    canManageMinistry: WorshipRolePermissions.canManageMinistry(worshipRole),
+    canDeleteMinistry: WorshipRolePermissions.canDeleteMinistry(worshipRole),
+    canCreateHymn: WorshipRolePermissions.canCreateHymn(worshipRole),
+    canEditHymn: WorshipRolePermissions.canEditHymn(worshipRole),
+    canApproveHymn: WorshipRolePermissions.canApproveHymn(worshipRole),
+    canDeleteHymn: WorshipRolePermissions.canDeleteHymn(worshipRole),
+    canCreateProgram: WorshipRolePermissions.canCreateProgram(worshipRole),
+    canEditProgram: WorshipRolePermissions.canEditProgram(worshipRole),
+    canApproveProgram: WorshipRolePermissions.canApproveProgram(worshipRole),
+    canDeleteProgram: WorshipRolePermissions.canDeleteProgram(worshipRole),
+    canCreateEvent: WorshipRolePermissions.canCreateEvent(worshipRole),
+    canEditEvent: WorshipRolePermissions.canEditEvent(worshipRole),
+    canDeleteEvent: WorshipRolePermissions.canDeleteEvent(worshipRole),
+    canInviteUsers: WorshipRolePermissions.canInviteUsers(worshipRole),
+    canAssignRoles: WorshipRolePermissions.canAssignRoles(worshipRole),
+    canRemoveUsers: WorshipRolePermissions.canRemoveUsers(worshipRole),
+    canViewAllFeedback: WorshipRolePermissions.canViewAllFeedback(worshipRole),
+    canResolveFeedback: WorshipRolePermissions.canResolveFeedback(worshipRole),
+    canManageSubscription: WorshipRolePermissions.canManageSubscription(worshipRole),
+    canViewUsageStats: WorshipRolePermissions.canViewUsageStats(worshipRole),
+  }), [worshipRole]);
 
   const contextValue: UserContextType = useMemo(() => ({
     user,
     organization,
     userRole,
+    worshipRole,
     isLoading: !userLoaded || !orgLoaded,
     isSignedIn: !!isSignedIn,
     // Computed helper properties
     userDisplayName,
     organizationDisplayName,
+    // Legacy role checks (maintained for backward compatibility)
     isAdmin: userRole === 'Admin',
     isPastor: userRole === 'Pastor',
     isOrganizationManager: userRole === 'Organization Manager',
     isMinistryLeader: userRole === 'Ministry Leader',
-  }), [user, organization, userRole, userLoaded, orgLoaded, isSignedIn, userDisplayName, organizationDisplayName]);
+    // Worship-specific role checks
+    isWorshipAdmin: worshipRole === 'admin',
+    isWorshipLeader: worshipRole === 'worship_leader',
+    isWorshipPastor: worshipRole === 'pastor',
+    isWorshipCollaborator: worshipRole === 'collaborator',
+    // Permission checks
+    permissions,
+  }), [user, organization, userRole, worshipRole, userLoaded, orgLoaded, isSignedIn, userDisplayName, organizationDisplayName, permissions]);
 
   return (
     <UserContext.Provider value={contextValue}>
