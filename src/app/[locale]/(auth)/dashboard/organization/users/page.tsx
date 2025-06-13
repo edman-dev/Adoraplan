@@ -1,22 +1,23 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
 
 import { RoleManagementDashboard } from '@/components/worship/role-management-dashboard';
 import { TitleBar } from '@/features/dashboard/TitleBar';
 import { useUserManagement } from '@/hooks/use-user-management';
 import { useWorshipAuth } from '@/hooks/use-worship-auth';
+import { useToast } from '@/hooks/use-toast';
 import type { ExtendedWorshipRole } from '@/lib/worship-role-utils';
 
 const UserManagementPage = () => {
   const { organizationId, userId, canInviteUsers } = useWorshipAuth();
   const [isPageLoading, setIsPageLoading] = useState(true);
+  const { toast } = useToast();
 
   const userManagement = useUserManagement({
     organizationId: organizationId || undefined,
-    onSuccess: message => toast.success(message),
-    onError: error => toast.error(error),
+    onSuccess: message => toast({ title: 'Success', description: message }),
+    onError: error => toast({ title: 'Error', description: error, variant: 'destructive' }),
   });
 
   // Load members when component mounts
@@ -72,28 +73,7 @@ const UserManagementPage = () => {
     );
   }
 
-  // Show access denied if user doesn't have permission
-  if (!canInviteUsers) {
-    return (
-      <div className="space-y-6">
-        <TitleBar
-          title="Role Management"
-          description="Comprehensive role and permission management for your organization"
-        />
-        <div className="flex items-center justify-center py-12">
-          <div className="text-center">
-            <div className="mb-4 text-4xl">🔒</div>
-            <h3 className="mb-2 text-lg font-medium">Access Denied</h3>
-            <p className="text-muted-foreground">
-              You don't have permission to access role management features.
-              <br />
-              Contact your organization administrator to request access.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Allow viewing but restrict actions based on permissions
 
   return (
     <div className="space-y-6">

@@ -40,6 +40,12 @@ export type WorshipUserMetadata = {
 // Role permission checking utilities
 export const WorshipRolePermissions = {
   // Church management permissions
+  canViewChurches: (role: ExtendedWorshipRole): boolean =>
+    ['admin', 'pastor', 'worship_leader', 'collaborator', 'member'].includes(role),
+
+  canManageChurches: (role: ExtendedWorshipRole): boolean =>
+    ['admin', 'pastor'].includes(role),
+
   canCreateChurch: (role: ExtendedWorshipRole): boolean =>
     ['admin', 'pastor'].includes(role),
 
@@ -50,6 +56,12 @@ export const WorshipRolePermissions = {
     role === 'admin',
 
   // Ministry management permissions
+  canViewMinistries: (role: ExtendedWorshipRole): boolean =>
+    ['admin', 'pastor', 'worship_leader', 'collaborator', 'member'].includes(role),
+
+  canManageMinistries: (role: ExtendedWorshipRole): boolean =>
+    ['admin', 'pastor', 'worship_leader'].includes(role),
+
   canCreateMinistry: (role: ExtendedWorshipRole): boolean =>
     ['admin', 'pastor', 'worship_leader'].includes(role),
 

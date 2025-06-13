@@ -13,9 +13,13 @@ import {
  */
 
 export type WorshipRoutePermission =
+  | 'canViewChurches'
+  | 'canManageChurches'
   | 'canCreateChurch'
   | 'canManageChurch'
   | 'canDeleteChurch'
+  | 'canViewMinistries'
+  | 'canManageMinistries'
   | 'canCreateMinistry'
   | 'canManageMinistry'
   | 'canDeleteMinistry'

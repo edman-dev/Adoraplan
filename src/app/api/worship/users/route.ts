@@ -105,9 +105,9 @@ async function handleInviteUser(request: NextRequest) {
   }
 }
 
-// Apply worship auth middleware
+// Apply worship auth middleware - allow viewing for all roles, but restrict inviting
 export const GET = withWorshipAuth(handleGetMembers, {
-  permission: 'canInviteUsers', // Users need invite permission to view member list
+  minimumRole: 'member', // Allow all users to view member list
 });
 
 export const POST = withWorshipAuth(handleInviteUser, {

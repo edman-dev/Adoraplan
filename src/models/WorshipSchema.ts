@@ -71,8 +71,11 @@ export const churchesSchema = pgTable(
     name: varchar('name', { length: 255 }).notNull(),
     description: text('description'),
     address: text('address'),
+    contactEmail: varchar('contact_email', { length: 255 }),
+    contactPhone: varchar('contact_phone', { length: 50 }),
     timezone: varchar('timezone', { length: 100 }).default('UTC'),
     isActive: boolean('is_active').default(true).notNull(),
+    deletedAt: timestamp('deleted_at', { mode: 'date' }),
     createdBy: text('created_by').notNull(), // User ID from Clerk
     updatedAt: timestamp('updated_at', { mode: 'date' })
       .defaultNow()

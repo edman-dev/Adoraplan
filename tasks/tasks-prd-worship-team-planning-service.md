@@ -36,10 +36,31 @@
 - `src/components/ui/select.tsx` - Select UI component ✅ CREATED
 - `src/components/ui/progress.tsx` - Progress UI component ✅ CREATED
 - `src/components/ui/tabs.tsx` - Tabs UI component ✅ CREATED
-- `src/features/worship/components/ChurchManagement.tsx` - Church creation and management interface
-- `src/features/worship/components/ChurchManagement.test.tsx` - Unit tests for church management component
-- `src/features/worship/components/MinistryManagement.tsx` - Ministry creation with icons and colors
-- `src/features/worship/components/MinistryManagement.test.tsx` - Unit tests for ministry management
+- `src/features/worship/components/ChurchManagement.tsx` - Church creation and management interface ✅ CREATED
+- `src/features/worship/components/ChurchManagement.test.tsx` - Unit tests for church management component ✅ CREATED
+- `src/app/api/worship/churches/route.ts` - API endpoints for church CRUD operations ✅ CREATED
+- `src/app/api/worship/churches/[churchId]/route.ts` - API endpoints for individual church operations ✅ CREATED
+- `src/components/ui/dialog.tsx` - Dialog UI component ✅ CREATED
+- `src/components/ui/textarea.tsx` - Textarea UI component ✅ CREATED
+- `src/hooks/use-toast.ts` - Toast notification hook ✅ CREATED
+- `src/features/worship/components/MinistryManagement.tsx` - Ministry creation with icons and colors ✅ CREATED
+- `src/features/worship/components/MinistryManagement.test.tsx` - Unit tests for ministry management ✅ CREATED
+- `src/app/api/worship/ministries/route.ts` - API endpoints for ministry CRUD operations ✅ CREATED
+- `src/app/api/worship/ministries/[ministryId]/route.ts` - API endpoints for individual ministry operations ✅ CREATED
+- `src/features/worship/components/ServiceManagement.tsx` - Service type management interface with common service templates ✅ CREATED
+- `src/features/worship/components/ServiceManagement.test.tsx` - Unit tests for service management functionality ✅ CREATED
+- `src/app/api/worship/services/route.ts` - API endpoints for service CRUD operations ✅ CREATED
+- `src/app/api/worship/services/[serviceId]/route.ts` - API endpoints for individual service operations ✅ CREATED
+- `src/features/worship/components/OrganizationalHierarchy.tsx` - Hierarchical navigation component for churches → ministries → services ✅ CREATED
+- `src/features/worship/components/OrganizationalHierarchy.test.tsx` - Unit tests for hierarchical navigation component ✅ CREATED
+- `src/hooks/use-organizational-navigation.ts` - Custom hook for managing organizational hierarchy navigation state ✅ CREATED
+- `src/hooks/use-organizational-navigation.test.ts` - Unit tests for organizational navigation hook ✅ CREATED
+- `src/libs/worship/SubscriptionLimits.ts` - Subscription tier validation utilities with usage tracking ✅ CREATED
+- `src/libs/worship/SubscriptionLimits.test.ts` - Unit tests for subscription limits functionality ✅ CREATED
+- `src/hooks/use-subscription-limits.ts` - React hooks for subscription limit checking and management ✅ CREATED
+- `src/app/api/worship/subscription/usage/route.ts` - API endpoint for fetching subscription usage data ✅ CREATED
+- `src/features/worship/components/SubscriptionLimitCard.tsx` - UI component for displaying subscription limits and upgrade prompts ✅ CREATED
+- `src/components/ui/badge.tsx` - Badge UI component for status indicators ✅ UPDATED
 - `src/features/worship/components/HymnLibrary.tsx` - Hymn creation, editing, and library management
 - `src/features/worship/components/HymnLibrary.test.tsx` - Unit tests for hymn library functionality
 - `src/features/worship/components/HymnPlayer.tsx` - Audio player with lyric synchronization
@@ -92,11 +113,11 @@
   - [x] 2.6 Write unit tests for role validation and middleware functions
 
 - [ ] 3.0 Organizational Structure Management (Churches, Ministries, Services)
-  - [ ] 3.1 Build church creation and management interface with CRUD operations
-  - [ ] 3.2 Implement ministry management with custom icons and color selection
-  - [ ] 3.3 Create service type management (Sunday Service, Wednesday Prayer, etc.)
-  - [ ] 3.4 Add hierarchical navigation between churches → ministries → services
-  - [ ] 3.5 Implement subscription tier validation for church/ministry limits
+  - [x] 3.1 Build church creation and management interface with CRUD operations
+  - [x] 3.2 Implement ministry management with custom icons and color selection
+  - [x] 3.3 Create service type management (Sunday Service, Wednesday Prayer, etc.)
+  - [x] 3.4 Add hierarchical navigation between churches → ministries → services
+  - [x] 3.5 Implement subscription tier validation for church/ministry limits
   - [ ] 3.6 Build admin dashboard for organizational oversight
   - [ ] 3.7 Write comprehensive unit tests for all organizational components
 
